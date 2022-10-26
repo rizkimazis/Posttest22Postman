@@ -13,8 +13,8 @@ public class TestAPIRizkiMaulana {
     public void testGet() {
         //
         JSONObject request = new JSONObject();
-        request.put("name", "Mesin Cuci");
-        request.put("category", "Elektronik");
+        request.put("name", "Bootcamp Juli 2022");
+        request.put("category", "Katalon");
         System.out.println(request.toJSONString());
 
         given()
@@ -24,6 +24,26 @@ public class TestAPIRizkiMaulana {
                 .body(request.toJSONString())
                 .when()
                 .get("https://mern-backend-8881.herokuapp.com/products")
+                .then()
+                .statusCode(200)
+                .log().all();
+    }
+
+    @Test
+    public void testGetSingle() {
+        //
+        JSONObject request = new JSONObject();
+        request.put("name", "Dhanna");
+        request.put("category", "SQA Engineer");
+        System.out.println(request.toJSONString());
+
+        given()
+                .header("Content-Type", "application/json")
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+                .body(request.toJSONString())
+                .when()
+                .get("https://mern-backend-8881.herokuapp.com/products/630502fd7207f2c541e470cd")
                 .then()
                 .statusCode(200)
                 .log().all();
@@ -71,9 +91,9 @@ public class TestAPIRizkiMaulana {
     public void testDelete() {
 
         when()
-                .delete("https://mern-backend-8881.herokuapp.com/products")
+                .delete("https://mern-backend-8881.herokuapp.com/products/62e20bdef0e24546b900e041")
                 .then()
-                .statusCode(404)
+                .statusCode(200)
                 .log().all();
 
     }
